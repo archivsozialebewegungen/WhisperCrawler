@@ -1,2 +1,2 @@
 # WhisperCrawler
-Simple Crawler that detects new audio files an transcribes them with whisper
+Simple Crawler that detects new audio files and transcribes them with whisper
