@@ -9,6 +9,7 @@ import time
 from posix import system
 import sys
 import datetime
+from pathlib import Path
 
 class NoFileToTranscribeFound(Exception):
     
@@ -69,6 +70,10 @@ if __name__ == '__main__':
             logger.log("Transcribing file %s" % next_file)
             dirname = os.path.dirname(next_file)
             command = 'source /opt/whisper/venv/bin/activate; whisper --language de --model large -f vtt --output_dir \\"%s\\" \\"%s\\"' % (dirname, next_file)
+            path = Path(next_file)
+            if not path.exists():
+                with open(path, "w") as vtt_file:
+                    vtt_file.write("Impossible to transcribe file")
             system('bash -c "%s"' % (command))
         except NoFileToTranscribeFound:
             logger.log("Nothing more to do. Sleeping for 30 Minutes.")
